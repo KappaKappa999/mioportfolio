@@ -125,3 +125,83 @@ header {
 
   
 }
+/* =============================
+   SEZIONE BIO (PARMA)
+============================= */
+.bio-section {
+  background-color: #71264C; /* Il tuo colore viola */
+  padding: 4rem 1.5rem;      /* Spaziatura sopra/sotto e laterale */
+  color: white;
+  width: 100%;
+}
+
+/* Contenitore per centrare e limitare la larghezza */
+.bio-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;       /* Dispone immagine e testo affiancati */
+  align-items: center; /* Centra verticalmente */
+  gap: 3rem;           /* Spazio tra immagine e testo */
+}
+
+/* Gestione Immagine */
+.bio-image {
+  flex: 1; /* Occupa lo stesso spazio del testo */
+}
+
+.bio-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Opzionale: se vuoi un bordo sottile come nella mappa cartacea */
+  /* border: 1px solid rgba(255,255,255,0.1); */
+}
+
+/* Gestione Testo */
+.bio-text {
+  flex: 1; /* Occupa lo stesso spazio dell'immagine */
+  font-family: 'Inter', sans-serif;
+}
+
+/* Titolo "Born in Parma" */
+.bio-text h2 {
+  font-family: 'Erica One', sans-serif;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* La parte "raised from..." */
+.bio-text .subtitle {
+  font-size: 2rem; /* Leggermente più piccolo come nel design */
+  display: block;  /* Va a capo */
+}
+
+/* Paragrafi descrittivi */
+.bio-text p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  opacity: 0.9; /* Leggermente meno "sparato" del titolo */
+  font-weight: 300;
+}
+
+/* =============================
+   RESPONSIVE BIO (MOBILE)
+============================= */
+@media (max-width: 768px) {
+  .bio-container {
+    flex-direction: column; /* Impila immagine e testo */
+    gap: 2rem;
+  }
+
+  .bio-text h2 {
+    font-size: 2.5rem; /* Titolo più piccolo su mobile */
+  }
+
+  .bio-text .subtitle {
+    font-size: 1.5rem;
+  }
+}
