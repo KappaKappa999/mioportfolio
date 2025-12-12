@@ -205,3 +205,9 @@ header {
     font-size: 1.5rem;
   }
 }
+.projects-section {
+    background-color: #2D2A43; /* Il colore viola scuro richiesto */
+    width: 100%;
+    padding: 100px 0;          /* Spazio interno sopra e sotto */
+    min-height: 600px;         /* Altezza temporanea per vederlo bene subito */
+}

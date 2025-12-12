@@ -1,67 +1,435 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kevin Kolonjari — Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Design</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Erica+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --bg-color: #0e0e0e;
+            --text-color: #ffffff;
+            --accent-color: #ccff00; /* Verde Lime */
+            --secondary-text: #a0a0a0;
+        }
+
+        /* LENIS SMOOTH SCROLL CSS */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            cursor: default; 
+        }
+
+        h1, h2, h3, .navbar-brand, .project-title-big {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        /* --- NAVBAR & HOVER EFFECTS AGGIORNATI --- */
+        .navbar {
+            padding: 2rem 0;
+            background: rgba(14, 14, 14, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        /* Stile base per Logo e Link */
+        .navbar-brand, .nav-link {
+            color: white !important; /* Colore base bianco */
+            text-decoration: none;
+            position: relative; /* Necessario per l'underline */
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        /* Specifiche Logo */
+        .navbar-brand { font-size: 1.8rem; }
+
+        /* Specifiche Link Menu */
+        .nav-link {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 2rem;
+            color: #aaaaaa !important; /* Colore inziale grigio chiaro */
+        }
+
+        /* -- EFFETTO UNDERLINE FROM CENTER -- */
+        .navbar-brand::after, .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px; /* Spessore linea */
+            bottom: -5px; /* Distanza dal testo */
+            left: 50%;
+            background-color: var(--accent-color); /* Colore linea */
+            transition: all 0.3s ease-in-out;
+            transform: translateX(-50%); /* Centratura precisa */
+        }
+
+        /* Hover State */
+        .navbar-brand:hover, .nav-link:hover {
+            color: var(--accent-color) !important; /* Cambio colore testo */
+        }
+
+        .navbar-brand:hover::after, .nav-link:hover::after {
+            width: 100%; /* Espansione linea */
+        }
+        /* --------------------------------------- */
+
+
+        /* HERO SECTION */
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        .hero-text { font-size: 5vw; line-height: 1; }
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 2rem;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        /* --- LAYOUT PROGETTI --- */
+        .project-section-split {
+            display: flex;
+            height: 100vh;
+            border-top: 1px solid #333;
+            margin-bottom: 0;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .project-left {
+            width: 40%;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid #333;
+            background-color: var(--bg-color);
+            overflow-y: auto;
+        }
+        .project-left::-webkit-scrollbar { width: 4px; }
+        .project-left::-webkit-scrollbar-thumb { background: #333; }
+
+        .project-title-big { font-size: 3rem; margin-bottom: 1rem; line-height: 1; }
+        .project-desc { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 2rem; line-height: 1.5; }
+
+        .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem; }
+        .tag { border: 1px solid #444; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; color: var(--secondary-text); text-transform: uppercase; }
+
+        .btn-project-trigger {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s;
+            cursor: pointer;
+            text-align: left;
+        }
+        .btn-project-trigger:hover { color: var(--accent-color); }
+        .btn-project-trigger::after { content: '+'; margin-left: 10px; font-size: 1.5rem; font-weight: 300; }
+
+        .details-box {
+            margin-top: 1.5rem;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1.5rem;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+        .detail-row {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #222;
+            padding-bottom: 0.5rem;
+        }
+        .detail-label { color: #666; text-transform: uppercase; font-size: 0.8rem; }
+        .detail-value { font-weight: 600; color: white; }
+
+        .project-right {
+            width: 60%;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .project-right:active { cursor: grabbing; }
+        .project-right::-webkit-scrollbar { display: none; }
+
+        .gallery-item {
+            min-width: 80%;
+            height: 100%;
+            scroll-snap-align: start;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-img {
+            max-width: 100%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover .gallery-img { transform: scale(1.02); }
+
+        .about-text { font-size: 1.5rem; line-height: 1.6; color: #cccccc; }
+        .footer-section { padding: 6rem 0; border-top: 1px solid #222; }
+        .big-email { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; color: white; text-decoration: none; transition: color 0.3s;}
+        .big-email:hover { color: var(--accent-color); }
+
+        @media (max-width: 992px) {
+            .hero-text { font-size: 3.5rem; }
+            .project-section-split { flex-direction: column; height: auto; padding-top: 60px; }
+            .project-left { width: 100%; padding: 2rem; border-right: none; border-bottom: 1px solid #333; height: auto; }
+            .project-right { width: 100%; height: 50vh; }
+        }
+    </style>
 </head>
 <body>
 
-  <header class="position-absolute top-0 start-0 w-100 py-3">
-    <div class="container">
-      <div class="row align-items-center justify-content-between">
-        <div class="col-auto">
-          <div class="logo fw-bold fs-5">KK</div>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">KK</a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#work">Progetti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Chi Sono</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="col-auto">
-          <div class="burger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <section class="hero d-flex align-items-center text-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-8">
-          <h1 class="fw-bold display-4">Kevin<br>Kolonjari</h1>
-          <p class="lead">Also a Design student</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <section class="bio-section">
-    <div class="bio-container">
-      
-      <div class="bio-image">
-        <img src="parma-map.jpg" alt="Mappa di Parma" class="img-fluid">
-      </div>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="hero-text">
+                        IL <br>
+                        MIO <br>
+                        PORTFOLIO.
+                    </h1>
+                    <p class="hero-sub">
+                        Studente di Design.<br>
+                        Portfolio 2024-2026.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="bio-text">
-        <h2>Born in Parma<br>
-        <span class="subtitle">raised by Albanian parents.</span></h2>
+    <div id="work">
         
-        <p>
-          My passions, as a teen, were playing football and listening to music.
-        </p>
-        
-        <p>
-          Now that I’m 21, music & design have become my greatest passions.
-        </p>
-      </div>
+        <section class="project-section-split">
+            <div class="project-left">
+                <h3 class="project-title-big">DRIM</h3>
+                <p class="project-desc">
+                    Da cinema di quartiere ad hub di comunità.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Comunicazione</span>
+                    <span class="tag">Editoria</span>
+                </div>
+
+                <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+                    Vedi Dettagli Progetto
+                </button>
+
+                <div class="collapse" id="collapseOne">
+                    <div class="details-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Anno</span>
+                            <span class="detail-value">2025</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ruolo</span>
+                            <span class="detail-value">Designer & Frontend</span>
+                        </div>
+                        <p class="mt-3 small">
+                            Progetto di brand Identity per l’ex cinema ASTORIA situato a Rimini.
+Avevamo il compito di dare vita alla struttura con l’obbiettivo di creare un HUB.
+Un open space multifunzionale e accogliente dedicato ai giovani che offre opportunità di aggregazione, creatività, formazione e supporto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="project-right">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503602642458-2321114458ed?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+            </div>
+        </section>
+
+        <section class="project-section-split">
+            <div class="project-left">
+                <h3 class="project-title-big">DPI KAYAK</h3>
+                <p class="project-desc">
+                    Progetto e modellazione di un dispositivo di protezione toracica
+                </p>
+                <div class="project-tags">
+                    <span class="tag">3D</span>
+                    <span class="tag">Wood</span>
+                </div>
+
+                <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
+                    Vedi Dettagli Progetto
+                </button>
+
+                <div class="collapse" id="collapseTwo">
+                    <div class="details-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Anno</span>
+                            <span class="detail-value">2025</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Materiali</span>
+                            <span class="detail-value"></span>
+                        </div>
+                        <p class="mt-3 small">
+                            Abbiamo deciso di progettare un paraschiena per coloro che praticano kayak, in quanto abbiamo riscontrato una mancanza di dispositivi di protezione specifici per la schiena che fossero in grado di offrire sicurezza senza compromettere la libertà di movimento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-right">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1513506003013-d5347e0f95d1?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+            </div>
+        </section>
+
+        <section class="project-section-split">
+            <div class="project-left">
+                <h3 class="project-title-big">Chair Study</h3>
+                <p class="project-desc">
+                    Studio ergonomico e formale di una seduta in tubolare metallico.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Furniture</span>
+                    <span class="tag">Ergonomics</span>
+                </div>
+
+                <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
+                    Vedi Dettagli Progetto
+                </button>
+
+                <div class="collapse" id="collapseThree">
+                    <div class="details-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Anno</span>
+                            <span class="detail-value">2023</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Corso</span>
+                            <span class="detail-value">Laboratorio 2</span>
+                        </div>
+                        <p class="mt-3 small">
+                            Analisi delle sedute Bauhaus e reinterpretazione moderna utilizzando piegatura CNC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-right">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+            </div>
+        </section>
 
     </div>
-  </section>
 
+    <section id="about" class="container py-5 my-5 border-top border-dark">
+        <div class="row pt-5">
+            <div class="col-md-4">
+                <h2 class="mb-4">CHI SONO</h2>
+            </div>
+            <div class="col-md-8">
+                <p class="about-text">
+                    Sono uno studente del secondo anno focalizzato sulla purezza della forma e la funzionalità. 
+                    Credo che il design debba essere invisibile ma essenziale. 
+                    Uso Figma, Rhino e le mie mani per costruire idee.
+                </p>
+                <a href="#" class="btn btn-outline-light mt-3 rounded-pill px-4 py-2">Scarica CV</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="text-uppercase text-secondary mb-3">Parliamone</p>
+                    <a href="mailto:tuaemail@gmail.com" class="big-email">tuaemail@gmail.com</a>
+                </div>
+            </div>
+            <div class="row mt-5 pt-4 text-center">
+                <div class="col-12">
+                    <a href="#" class="text-white mx-3 text-decoration-none hover-trigger">Instagram</a>
+                    <a href="#" class="text-white mx-3 text-decoration-none hover-trigger">LinkedIn</a>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 text-center text-secondary small">
+                    &copy; 2025 Tuo Nome - Product Design
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+    </script>
 </body>
 </html>
