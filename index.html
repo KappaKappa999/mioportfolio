@@ -17,6 +17,8 @@
             --text-color: #ffffff;
             --accent-color: #ccff00; /* Verde Lime */
             --secondary-text: #a0a0a0;
+            --form-bg: #1a1a1a;
+            --btn-beige: #f4e9d8;
         }
 
         /* LENIS SMOOTH SCROLL CSS */
@@ -30,31 +32,40 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
-            cursor: default; /* Cursore standard */
+            cursor: default; 
         }
 
-        h1, h2, h3, .navbar-brand, .project-title-big {
+        h1, h2, h3, h4, .navbar-brand, .project-title-big {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
             letter-spacing: -1px;
-            text-transform: uppercase;
         }
 
-        /* --- ANIMAZIONI SCROLL REVEAL --- */
-        .reveal {
+        /* --- ANIMAZIONE HERO --- */
+        @keyframes fadeUpHero {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-animate {
+            animation: fadeUpHero 1.2s ease-out forwards;
+            opacity: 0; 
+        }
+        .delay-1 { animation-delay: 0.3s; }
+
+        /* --- ANIMAZIONE SCROLL --- */
+        .scroll-item {
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            opacity: 1; 
+            transform: translateY(0);
+        }
+        .scroll-item.hidden-state {
             opacity: 0;
-            transform: translateY(50px); /* Parte da 50px più in basso */
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1); /* Movimento fluido */
+            transform: translateY(50px);
         }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0); /* Torna al posto giusto */
+        .scroll-item.show-view {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
-
-        /* Classi per il ritardo (Delay) */
-        .delay-1 { transition-delay: 0.1s; } /* Ritardo breve */
-        .delay-2 { transition-delay: 0.2s; } /* Ritardo medio */
 
         /* NAVBAR & HOVER EFFECTS */
         .navbar {
@@ -63,26 +74,21 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
         }
-        
         .navbar-brand, .nav-link {
             color: white !important;
             text-decoration: none;
             position: relative;
             display: inline-block;
             transition: color 0.3s ease;
+            text-transform: uppercase;
         }
-
         .navbar-brand { font-size: 1.8rem; }
-
         .nav-link {
             font-size: 0.9rem;
-            text-transform: uppercase;
             letter-spacing: 1px;
             margin-left: 2rem;
             color: #aaaaaa !important;
         }
-
-        /* UNDERLINE FROM CENTER EFFECT */
         .navbar-brand::after, .nav-link::after {
             content: '';
             position: absolute;
@@ -94,14 +100,8 @@
             transition: all 0.3s ease-in-out;
             transform: translateX(-50%);
         }
-
-        .navbar-brand:hover, .nav-link:hover {
-            color: var(--accent-color) !important;
-        }
-
-        .navbar-brand:hover::after, .nav-link:hover::after {
-            width: 100%;
-        }
+        .navbar-brand:hover, .nav-link:hover { color: var(--accent-color) !important; }
+        .navbar-brand:hover::after, .nav-link:hover::after { width: 100%; }
 
         /* HERO SECTION */
         .hero-section {
@@ -110,7 +110,7 @@
             align-items: center;
             padding-top: 80px;
         }
-        .hero-text { font-size: 6vw; line-height: 1; } /* Font leggermente più grande */
+        .hero-text { font-size: 6vw; line-height: 1; text-transform: uppercase; }
         .hero-sub {
             font-size: 1.1rem;
             color: #888;
@@ -142,7 +142,7 @@
         .project-left::-webkit-scrollbar { width: 4px; }
         .project-left::-webkit-scrollbar-thumb { background: #333; }
 
-        .project-title-big { font-size: 3rem; margin-bottom: 1rem; line-height: 1; }
+        .project-title-big { font-size: 3rem; margin-bottom: 1rem; line-height: 1; text-transform: uppercase; }
         .project-desc { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 2rem; line-height: 1.5; }
 
         .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem; }
@@ -187,9 +187,7 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
-            cursor: grab;
         }
-        .project-right:active { cursor: grabbing; }
         .project-right::-webkit-scrollbar { display: none; }
 
         .gallery-item {
@@ -211,16 +209,167 @@
         }
         .gallery-item:hover .gallery-img { transform: scale(1.02); }
 
-        .about-text { font-size: 1.5rem; line-height: 1.6; color: #cccccc; }
-        .footer-section { padding: 6rem 0; border-top: 1px solid #222; }
-        .big-email { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; color: white; text-decoration: none; transition: color 0.3s;}
-        .big-email:hover { color: var(--accent-color); }
+        /* --- ABOUT ME CON POSIZIONAMENTO E COLORI MODIFICATI --- */
+        #about {
+            position: relative;
+            width: 100%;
+            min-height: 70vh; 
+            
+            /* Background settings */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('header-bg-desktop.jpg');
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+
+            /* Visualizzazione */
+            display: flex;
+            align-items: flex-start; /* Testo in alto */
+            padding-top: 150px; 
+            padding-bottom: 100px;
+        }
+
+        #about h2 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        #about .about-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: var(--secondary-text); 
+            font-weight: 300;
+        }
+
+        /* CLASSE PER LA K VERDE FLUO AGGIORNATA CON FONT DEL TITOLO */
+        .neon-letter {
+            color: var(--accent-color);
+            /* Aggiunto font e peso dei titoli */
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        /* --- LET'S TALK SECTION --- */
+        .lets-talk-section {
+            padding: 8rem 0;
+            border-top: 1px solid #222;
+            background-color: var(--bg-color);
+        }
+
+        .lets-talk-title {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            line-height: 1;
+        }
+
+        .contact-intro {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .contact-details p, .social-links p {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-label {
+            color: var(--secondary-text);
+            display: block;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-link:hover { color: var(--accent-color); }
+
+        /* Stile Bottone CV nel Footer */
+        .btn-cv-footer {
+            border: 1px solid #444;
+            color: #fff;
+            background: transparent;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .btn-cv-footer:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(204, 255, 0, 0.1);
+        }
+
+        .contact-form-wrapper {
+            background-color: var(--form-bg);
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .form-label {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            background-color: #0e0e0e;
+            border: 1px solid #333;
+            color: var(--text-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+        .form-control:focus {
+            background-color: #0e0e0e;
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: none;
+        }
+        .form-control::placeholder { color: #666; }
+
+        /* BOTTONE SEND */
+        .btn-send {
+            background-color: var(--btn-beige);
+            color: #0e0e0e;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-send:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-color); 
+            box-shadow: 0 5px 20px rgba(204, 255, 0, 0.3);
+        }
+        
+        .btn-send span { margin-left: 8px; }
+
 
         @media (max-width: 992px) {
             .hero-text { font-size: 3.5rem; }
             .project-section-split { flex-direction: column; height: auto; padding-top: 60px; }
             .project-left { width: 100%; padding: 2rem; border-right: none; border-bottom: 1px solid #333; height: auto; }
             .project-right { width: 100%; height: 50vh; }
+            .lets-talk-title { font-size: 3rem; }
+            .contact-form-wrapper { padding: 2rem; margin-top: 3rem; }
+            
+            /* Aggiustamento About su Mobile */
+            #about { padding: 80px 0; min-height: auto; align-items: center; /* Su mobile meglio centrato */ }
+            #about h2 { font-size: 2.5rem; }
+            #about .about-text { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -228,15 +377,15 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">TUO NOME.</a>
+            <a class="navbar-brand" href="#">KK</a>
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#work">Lavori</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">Chi Sono</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#work">Progetti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">KK</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Let's Talk</a></li>
                 </ul>
             </div>
         </div>
@@ -246,11 +395,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <h1 class="hero-text reveal">
-                        IL MIO <br>
+                    <h1 class="hero-text hero-animate">
+                        IL <br>
+                        MIO <br>
                         PORTFOLIO.
                     </h1>
-                    <p class="hero-sub reveal delay-1">
+                    <p class="hero-sub hero-animate delay-1">
                         Design Intelligence.<br>
                         Studente di Product Design 2023-2025.
                     </p>
@@ -262,8 +412,8 @@
     <div id="work">
         
         <section class="project-section-split">
-            <div class="project-left reveal">
-                <h3 class="project-title-big">Breach Tools</h3>
+            <div class="project-left">
+                <h3 class="project-title-big scroll-item">Breach Tools</h3>
                 <p class="project-desc">
                     Vetrina digitale per strumenti di precisione. Design pulito e movimento fluido.
                 </p>
@@ -293,15 +443,15 @@
                 </div>
             </div>
 
-            <div class="project-right reveal delay-1">
+            <div class="project-right">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503602642458-2321114458ed?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
         </section>
 
         <section class="project-section-split">
-            <div class="project-left reveal">
-                <h3 class="project-title-big">Lumiere Lamp</h3>
+            <div class="project-left">
+                <h3 class="project-title-big scroll-item">Lumiere Lamp</h3>
                 <p class="project-desc">
                     Progettazione di una lampada da tavolo sostenibile in legno e metallo.
                 </p>
@@ -328,15 +478,15 @@
                 </div>
             </div>
 
-            <div class="project-right reveal delay-1">
+            <div class="project-right">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1513506003013-d5347e0f95d1?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
         </section>
 
         <section class="project-section-split">
-            <div class="project-left reveal">
-                <h3 class="project-title-big">Chair Study</h3>
+            <div class="project-left">
+                <h3 class="project-title-big scroll-item">Chair Study</h3>
                 <p class="project-desc">
                     Studio ergonomico e formale di una seduta in tubolare metallico.
                 </p>
@@ -363,7 +513,7 @@
                 </div>
             </div>
 
-            <div class="project-right reveal delay-1">
+            <div class="project-right">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
@@ -371,49 +521,87 @@
 
     </div>
 
-    <section id="about" class="container py-5 my-5 border-top border-dark">
-        <div class="row pt-5">
-            <div class="col-md-4">
-                <h2 class="mb-4">CHI SONO</h2>
-            </div>
-            <div class="col-md-8">
-                <p class="about-text">
-                    Sono uno studente del secondo anno focalizzato sulla purezza della forma e la funzionalità. 
-                    Credo che il design debba essere invisibile ma essenziale. 
-                    Uso Figma, Rhino e le mie mani per costruire idee.
-                </p>
-                <a href="#" class="btn btn-outline-light mt-3 rounded-pill px-4 py-2">Scarica CV</a>
+    <section id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <h2 class="text-uppercase">ABOUT ME</h2>
+                </div>
+                <div class="col-lg-7">
+                    <p class="about-text">
+                        <span class="neon-letter">K</span>evin <span class="neon-letter">K</span>olonjari, nato a Parma con origini albanesi.<br>
+                        Cresciuto nel mondo della metalmeccanica,<br>
+                        ho sviluppato una passione per il design industriale e l'innovazione tecnologica.<br>
+                        Big fan della musica elettronica, inizio a suonare la console a 14 anni facendolo diventare cosi il mio main hobby.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="footer-section">
+    <section id="contact" class="lets-talk-section">
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center">
-                    <p class="text-uppercase text-secondary mb-3">Parliamone</p>
-                    <a href="mailto:tuaemail@gmail.com" class="big-email">tuaemail@gmail.com</a>
+                
+                <div class="col-lg-5">
+                    <h2 class="lets-talk-title">Let's <br> Talk</h2>
+                    
+                    <div class="contact-intro">
+                        <p>Facciamo connection Twin, il mondo è paese e io voglio conoscere i miei vicini.</p>
+                    </div>
+
+                    <div class="contact-details mb-5">
+                        <p><a href="mailto:tuaemail@gmail.com" class="contact-link">tuaemail@gmail.com</a></p>
+                        <p>+39 123 456 7890</p>
+
+                        <a href="#" class="btn-cv-footer">
+                            Scarica CV
+                        </a>
+                    </div>
+
+                    <div class="social-links">
+                        <span class="contact-label">Follow</span>
+                        <p><a href="#" class="contact-link">Instagram</a></p>
+                        <p><a href="#" class="contact-link">LinkedIn</a></p>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-5 pt-4 text-center">
-                <div class="col-12">
-                    <a href="#" class="text-white mx-3 text-decoration-none hover-trigger">Instagram</a>
-                    <a href="#" class="text-white mx-3 text-decoration-none hover-trigger">LinkedIn</a>
+
+                <div class="col-lg-7">
+                    <div class="contact-form-wrapper">
+                        <form>
+                            <div class="mb-4">
+                                <label for="nameInput" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="nameInput" placeholder="Your Name">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="emailInput" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="emailInput" placeholder="Your Email">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="phoneInput" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phoneInput" placeholder="Your Phone">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="messageInput" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="messageInput" rows="5" placeholder="Your Message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-send">
+                                Send 
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-12 text-center text-secondary small">
-                    &copy; 2025 Tuo Nome - Product Design
-                </div>
+
             </div>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+    
     <script>
-        // 1. INIZIALIZZAZIONE SMOOTH SCROLL (LENIS)
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -424,35 +612,47 @@
             smoothTouch: false,
             touchMultiplier: 2,
         })
-
         function raf(time) {
             lenis.raf(time)
             requestAnimationFrame(raf)
         }
         requestAnimationFrame(raf)
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollItems = document.querySelectorAll('.scroll-item');
+            
+            // Applica hidden solo se siamo sicuri che JS gira
+            scrollItems.forEach(el => el.classList.add('hidden-state'));
 
-        // 2. SCRIPT PER RILEVARE L'APPARIZIONE DEGLI ELEMENTI (SCROLL REVEAL)
-        const reveals = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null,
+                threshold: 0.1
+            };
 
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 150; // Distanza dal basso prima che appaia
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('hidden-state');
+                        entry.target.classList.add('show-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-            reveals.forEach((reveal) => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveal.classList.add('active');
-                }
+            scrollItems.forEach((el) => {
+                observer.observe(el);
             });
-        };
 
-        // Attiva la funzione allo scroll
-        window.addEventListener('scroll', revealOnScroll);
-        
-        // Attiva subito la funzione al caricamento per l'Header
-        revealOnScroll(); 
+            // SALVAGENTE
+            setTimeout(() => {
+                const hiddenItems = document.querySelectorAll('.hidden-state');
+                hiddenItems.forEach(el => {
+                    el.classList.remove('hidden-state');
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }, 2000); 
+        });
     </script>
 </body>
 </html>
