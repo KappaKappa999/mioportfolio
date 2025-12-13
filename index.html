@@ -30,7 +30,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
-            cursor: default; 
+            cursor: default; /* Cursore standard */
         }
 
         h1, h2, h3, .navbar-brand, .project-title-big {
@@ -40,7 +40,23 @@
             text-transform: uppercase;
         }
 
-        /* --- NAVBAR & HOVER EFFECTS AGGIORNATI --- */
+        /* --- ANIMAZIONI SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px); /* Parte da 50px più in basso */
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1); /* Movimento fluido */
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0); /* Torna al posto giusto */
+        }
+
+        /* Classi per il ritardo (Delay) */
+        .delay-1 { transition-delay: 0.1s; } /* Ritardo breve */
+        .delay-2 { transition-delay: 0.2s; } /* Ritardo medio */
+
+        /* NAVBAR & HOVER EFFECTS */
         .navbar {
             padding: 2rem 0;
             background: rgba(14, 14, 14, 0.9);
@@ -48,50 +64,44 @@
             z-index: 1000;
         }
         
-        /* Stile base per Logo e Link */
         .navbar-brand, .nav-link {
-            color: white !important; /* Colore base bianco */
+            color: white !important;
             text-decoration: none;
-            position: relative; /* Necessario per l'underline */
+            position: relative;
             display: inline-block;
             transition: color 0.3s ease;
         }
 
-        /* Specifiche Logo */
         .navbar-brand { font-size: 1.8rem; }
 
-        /* Specifiche Link Menu */
         .nav-link {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-left: 2rem;
-            color: #aaaaaa !important; /* Colore inziale grigio chiaro */
+            color: #aaaaaa !important;
         }
 
-        /* -- EFFETTO UNDERLINE FROM CENTER -- */
+        /* UNDERLINE FROM CENTER EFFECT */
         .navbar-brand::after, .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px; /* Spessore linea */
-            bottom: -5px; /* Distanza dal testo */
+            height: 2px;
+            bottom: -5px;
             left: 50%;
-            background-color: var(--accent-color); /* Colore linea */
+            background-color: var(--accent-color);
             transition: all 0.3s ease-in-out;
-            transform: translateX(-50%); /* Centratura precisa */
+            transform: translateX(-50%);
         }
 
-        /* Hover State */
         .navbar-brand:hover, .nav-link:hover {
-            color: var(--accent-color) !important; /* Cambio colore testo */
+            color: var(--accent-color) !important;
         }
 
         .navbar-brand:hover::after, .nav-link:hover::after {
-            width: 100%; /* Espansione linea */
+            width: 100%;
         }
-        /* --------------------------------------- */
-
 
         /* HERO SECTION */
         .hero-section {
@@ -100,7 +110,7 @@
             align-items: center;
             padding-top: 80px;
         }
-        .hero-text { font-size: 5vw; line-height: 1; }
+        .hero-text { font-size: 6vw; line-height: 1; } /* Font leggermente più grande */
         .hero-sub {
             font-size: 1.1rem;
             color: #888;
@@ -218,13 +228,13 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">KK</a>
+            <a class="navbar-brand" href="#">TUO NOME.</a>
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#work">Progetti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#work">Lavori</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">Chi Sono</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
                 </ul>
@@ -236,14 +246,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <h1 class="hero-text">
-                        IL <br>
-                        MIO <br>
+                    <h1 class="hero-text reveal">
+                        IL MIO <br>
                         PORTFOLIO.
                     </h1>
-                    <p class="hero-sub">
-                        Studente di Design.<br>
-                        Portfolio 2024-2026.
+                    <p class="hero-sub reveal delay-1">
+                        Design Intelligence.<br>
+                        Studente di Product Design 2023-2025.
                     </p>
                 </div>
             </div>
@@ -253,14 +262,14 @@
     <div id="work">
         
         <section class="project-section-split">
-            <div class="project-left">
-                <h3 class="project-title-big">DRIM</h3>
+            <div class="project-left reveal">
+                <h3 class="project-title-big">Breach Tools</h3>
                 <p class="project-desc">
-                    Da cinema di quartiere ad hub di comunità.
+                    Vetrina digitale per strumenti di precisione. Design pulito e movimento fluido.
                 </p>
                 <div class="project-tags">
-                    <span class="tag">Comunicazione</span>
-                    <span class="tag">Editoria</span>
+                    <span class="tag">UX/UI</span>
+                    <span class="tag">Research</span>
                 </div>
 
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
@@ -271,36 +280,33 @@
                     <div class="details-box">
                         <div class="detail-row">
                             <span class="detail-label">Anno</span>
-                            <span class="detail-value">2025</span>
+                            <span class="detail-value">2024</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Ruolo</span>
                             <span class="detail-value">Designer & Frontend</span>
                         </div>
                         <p class="mt-3 small">
-                            Progetto di brand Identity per l’ex cinema ASTORIA situato a Rimini.
-Avevamo il compito di dare vita alla struttura con l’obbiettivo di creare un HUB.
-Un open space multifunzionale e accogliente dedicato ai giovani che offre opportunità di aggregazione, creatività, formazione e supporto.
+                            Approfondimento: L'obiettivo era creare un'interfaccia che rispecchiasse la solidità degli strumenti fisici venduti.
                         </p>
                     </div>
                 </div>
             </div>
 
-
-            <div class="project-right">
+            <div class="project-right reveal delay-1">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503602642458-2321114458ed?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
         </section>
 
         <section class="project-section-split">
-            <div class="project-left">
-                <h3 class="project-title-big">DPI KAYAK</h3>
+            <div class="project-left reveal">
+                <h3 class="project-title-big">Lumiere Lamp</h3>
                 <p class="project-desc">
-                    Progetto e modellazione di un dispositivo di protezione toracica
+                    Progettazione di una lampada da tavolo sostenibile in legno e metallo.
                 </p>
                 <div class="project-tags">
-                    <span class="tag">3D</span>
+                    <span class="tag">Industrial</span>
                     <span class="tag">Wood</span>
                 </div>
 
@@ -312,27 +318,24 @@ Un open space multifunzionale e accogliente dedicato ai giovani che offre opport
                     <div class="details-box">
                         <div class="detail-row">
                             <span class="detail-label">Anno</span>
-                            <span class="detail-value">2025</span>
+                            <span class="detail-value">2023</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Materiali</span>
-                            <span class="detail-value"></span>
+                            <span class="detail-value">Rovere, Alluminio</span>
                         </div>
-                        <p class="mt-3 small">
-                            Abbiamo deciso di progettare un paraschiena per coloro che praticano kayak, in quanto abbiamo riscontrato una mancanza di dispositivi di protezione specifici per la schiena che fossero in grado di offrire sicurezza senza compromettere la libertà di movimento.
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="project-right">
+            <div class="project-right reveal delay-1">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1513506003013-d5347e0f95d1?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
         </section>
 
         <section class="project-section-split">
-            <div class="project-left">
+            <div class="project-left reveal">
                 <h3 class="project-title-big">Chair Study</h3>
                 <p class="project-desc">
                     Studio ergonomico e formale di una seduta in tubolare metallico.
@@ -356,14 +359,11 @@ Un open space multifunzionale e accogliente dedicato ai giovani che offre opport
                             <span class="detail-label">Corso</span>
                             <span class="detail-value">Laboratorio 2</span>
                         </div>
-                        <p class="mt-3 small">
-                            Analisi delle sedute Bauhaus e reinterpretazione moderna utilizzando piegatura CNC.
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="project-right">
+            <div class="project-right reveal delay-1">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
             </div>
@@ -413,6 +413,7 @@ Un open space multifunzionale e accogliente dedicato ai giovani che offre opport
     
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
     <script>
+        // 1. INIZIALIZZAZIONE SMOOTH SCROLL (LENIS)
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -428,8 +429,30 @@ Un open space multifunzionale e accogliente dedicato ai giovani che offre opport
             lenis.raf(time)
             requestAnimationFrame(raf)
         }
-
         requestAnimationFrame(raf)
+
+
+        // 2. SCRIPT PER RILEVARE L'APPARIZIONE DEGLI ELEMENTI (SCROLL REVEAL)
+        const reveals = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150; // Distanza dal basso prima che appaia
+
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        // Attiva la funzione allo scroll
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Attiva subito la funzione al caricamento per l'Header
+        revealOnScroll(); 
     </script>
 </body>
 </html>
