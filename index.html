@@ -73,7 +73,15 @@
             background: rgba(14, 14, 14, 0.9);
             backdrop-filter: blur(10px);
             z-index: 1000;
+            /* Transizione per effetto scomparsa */
+            transition: transform 0.3s ease-in-out, background 0.3s;
         }
+        
+        /* Classe per nascondere la navbar */
+        .navbar-hidden {
+            transform: translateY(-100%);
+        }
+
         .navbar-brand, .nav-link {
             color: white !important;
             text-decoration: none;
@@ -102,6 +110,41 @@
         }
         .navbar-brand:hover, .nav-link:hover { color: var(--accent-color) !important; }
         .navbar-brand:hover::after, .nav-link:hover::after { width: 100%; }
+
+        /* --- STILE MENU BURGER ANIMATO --- */
+        .navbar-toggler.custom-toggler {
+            border: none;
+            padding: 0;
+            outline: none;
+            box-shadow: none !important;
+        }
+
+        .hamburger-lines {
+            width: 30px;
+            height: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger-lines .line {
+            display: block;
+            height: 3px;
+            width: 100%;
+            border-radius: 10px;
+            background: var(--accent-color); /* VERDE FLUO */
+        }
+
+        .hamburger-lines .line1 { transform-origin: 0% 0%; transition: transform 0.4s ease-in-out; }
+        .hamburger-lines .line2 { transition: transform 0.2s ease-in-out; }
+        .hamburger-lines .line3 { transform-origin: 0% 100%; transition: transform 0.4s ease-in-out; }
+
+        /* ANIMAZIONE A 'X' QUANDO APERTO */
+        .navbar-toggler[aria-expanded="true"] .line1 { transform: rotate(45deg); }
+        .navbar-toggler[aria-expanded="true"] .line2 { transform: scaleY(0); }
+        .navbar-toggler[aria-expanded="true"] .line3 { transform: rotate(-45deg); }
+
 
         /* HERO SECTION */
         .hero-section {
@@ -200,32 +243,39 @@
             justify-content: center;
         }
 
-        .gallery-img {
+        /* STILE IMMAGINI E VIDEO */
+        .gallery-img, 
+        .gallery-item video {  
             max-width: 100%;
             max-height: 90%;
             object-fit: contain;
             border-radius: 4px;
             transition: transform 0.5s ease;
+            outline: none;
         }
-        .gallery-item:hover .gallery-img { transform: scale(1.02); }
 
-        /* --- ABOUT ME CON POSIZIONAMENTO E COLORI MODIFICATI --- */
+        .gallery-item:hover .gallery-img,
+        .gallery-item:hover video { 
+            transform: scale(1.02); 
+        }
+
+        /* --- ABOUT ME --- */
         #about {
             position: relative;
             width: 100%;
             min-height: 70vh; 
             
-            /* Background settings */
+            /* SFONDO DESKTOP */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('header-bg-desktop.jpg');
+                url('./img:/header-bg-desktop.jpg'); 
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
 
             /* Visualizzazione */
             display: flex;
-            align-items: flex-start; /* Testo in alto */
+            align-items: flex-start;
             padding-top: 150px; 
             padding-bottom: 100px;
         }
@@ -243,10 +293,8 @@
             font-weight: 300;
         }
 
-        /* CLASSE PER LA K VERDE FLUO AGGIORNATA CON FONT DEL TITOLO */
         .neon-letter {
             color: var(--accent-color);
-            /* Aggiunto font e peso dei titoli */
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
         }
@@ -290,7 +338,6 @@
         }
         .contact-link:hover { color: var(--accent-color); }
 
-        /* Stile Bottone CV nel Footer */
         .btn-cv-footer {
             border: 1px solid #444;
             color: #fff;
@@ -335,7 +382,6 @@
         }
         .form-control::placeholder { color: #666; }
 
-        /* BOTTONE SEND */
         .btn-send {
             background-color: var(--btn-beige);
             color: #0e0e0e;
@@ -367,20 +413,37 @@
             .contact-form-wrapper { padding: 2rem; margin-top: 3rem; }
             
             /* Aggiustamento About su Mobile */
-            #about { padding: 80px 0; min-height: auto; align-items: center; /* Su mobile meglio centrato */ }
+            #about { padding: 80px 0; min-height: auto; align-items: center; }
             #about h2 { font-size: 2.5rem; }
             #about .about-text { font-size: 1.2rem; }
+            #about {
+                /* SFONDO MOBILE */
+                background-image: 
+                    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                    url('./header-bg-mobile.jpg'); /* <-- ASSICURATI DI AVERE QUESTA IMG */
+                background-attachment: fixed; 
+                background-position: center top;
+                background-size: cover;
+            }
         }
+        
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
+            
             <a class="navbar-brand" href="#">KK</a>
-            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
             </button>
+            
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="#work">Progetti</a></li>
@@ -388,6 +451,7 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Let's Talk</a></li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
@@ -401,24 +465,24 @@
                         PORTFOLIO.
                     </h1>
                     <p class="hero-sub hero-animate delay-1">
-                        Design Intelligence.<br>
-                        Studente di Product Design 2023-2025.
+                        
+                        Studente di  Design 2023-2026.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="work">
+   <div id="work">
         
         <section class="project-section-split">
             <div class="project-left">
-                <h3 class="project-title-big scroll-item">Breach Tools</h3>
+                <h3 class="project-title-big scroll-item">DRIM</h3>
                 <p class="project-desc">
-                    Vetrina digitale per strumenti di precisione. Design pulito e movimento fluido.
+                    Da cinema di quartiere ad hub di comunità.
                 </p>
                 <div class="project-tags">
-                    <span class="tag">UX/UI</span>
+                    <span class="tag">Brand Identity</span>
                     <span class="tag">Research</span>
                 </div>
 
@@ -430,34 +494,55 @@
                     <div class="details-box">
                         <div class="detail-row">
                             <span class="detail-label">Anno</span>
-                            <span class="detail-value">2024</span>
+                            <span class="detail-value">2025</span>
                         </div>
                         <div class="detail-row">
-                            <span class="detail-label">Ruolo</span>
-                            <span class="detail-value">Designer & Frontend</span>
+                            <span class="detail-label">Corso</span>
+                            <span class="detail-value">Lab. di Comunicazione</span>
                         </div>
                         <p class="mt-3 small">
-                            Approfondimento: L'obiettivo era creare un'interfaccia che rispecchiasse la solidità degli strumenti fisici venduti.
+                            Progetto di brand Identity per l’ex cinema ASTORIA situato a Rimini.<br>
+Con il compito di dare vita alla struttura e l’obbiettivo di creare un HUB.
+Un open space multifunzionale e accogliente dedicato ai giovani che offre opportunità di aggregazione, creatività, formazione e supporto.
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="project-right">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503602642458-2321114458ed?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/mockup-fermata-bus.png" class="gallery-img" alt="Fermata Bus">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/mockup-tre-manifesti.png" class="gallery-img" alt="Tre Manifesti">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./img:/Tessera-Associati_Mockup.jpg" class="gallery-img" alt="Tessera Associati">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./img:/Free_Ticket_Mockup_2.jpg" class="gallery-img" alt="Ticket">
+                </div>
+
+                 <div class="gallery-item">
+                    <img src="./img:/Tote_Bag_Mockup_2.jpg" class="gallery-img" alt="Tote Bag">
+                </div>
+
             </div>
         </section>
 
-        <section class="project-section-split">
+       <section class="project-section-split">
             <div class="project-left">
-                <h3 class="project-title-big scroll-item">Lumiere Lamp</h3>
+                <h3 class="project-title-big scroll-item">Paraschiena</h3>
                 <p class="project-desc">
-                    Progettazione di una lampada da tavolo sostenibile in legno e metallo.
+                    Progetto e modellazione di un dispositivo di protezione toracica.
                 </p>
                 <div class="project-tags">
-                    <span class="tag">Industrial</span>
-                    <span class="tag">Wood</span>
+                    <span class="tag">3D Model</span>
+                    <span class="tag">Render</span>
                 </div>
 
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
@@ -468,31 +553,53 @@
                     <div class="details-box">
                         <div class="detail-row">
                             <span class="detail-label">Anno</span>
-                            <span class="detail-value">2023</span>
+                            <span class="detail-value">2025</span>
                         </div>
                         <div class="detail-row">
-                            <span class="detail-label">Materiali</span>
-                            <span class="detail-value">Rovere, Alluminio</span>
+                            <span class="detail-label">Corso</span>
+                            <span class="detail-value">Modellazione 3D</span>
                         </div>
+                        <p class="mt-3 small">
+                            Abbiamo deciso di progettare un paraschiena per coloro che praticano kayak, in quanto abbiamo riscontrato una mancanza di dispositivi di protezione specifici per la schiena che fossero in grado di offrire sicurezza senza compromettere la libertà di movimento.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="project-right">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1513506003013-d5347e0f95d1?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/rhino0.png" class="gallery-img" alt="Vista 1">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/rhino1.png" class="gallery-img" alt="Vista 2">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/rhino2.png" class="gallery-img" alt="Vista 3">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/rhino3.png" class="gallery-img" alt="Vista 4">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="./img:/rhino4.png" class="gallery-img" alt="Vista 5">
+                </div>
+
             </div>
         </section>
 
         <section class="project-section-split">
             <div class="project-left">
-                <h3 class="project-title-big scroll-item">Chair Study</h3>
+                <h3 class="project-title-big scroll-item">La Settimana Unigmistica</h3>
                 <p class="project-desc">
-                    Studio ergonomico e formale di una seduta in tubolare metallico.
+                    Progetto interno per UNIRSM
                 </p>
                 <div class="project-tags">
-                    <span class="tag">Furniture</span>
-                    <span class="tag">Ergonomics</span>
+                    <span class="tag">Stampa</span>
+                    <span class="tag">Comunication</span>
                 </div>
 
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
@@ -503,19 +610,33 @@
                     <div class="details-box">
                         <div class="detail-row">
                             <span class="detail-label">Anno</span>
-                            <span class="detail-value">2023</span>
+                            <span class="detail-value">2025</span>
                         </div>
                         <div class="detail-row">
-                            <span class="detail-label">Corso</span>
-                            <span class="detail-value">Laboratorio 2</span>
+                            <span class="detail-label">Collaboratori</span>
+                            <span class="detail-value">Matilde Lepri</span>
                         </div>
+                         <p class="mt-3 small">
+                            Progetto mini-editoriale con la funzione di Ice-breaker per le nuove matricole della triennale di design UNIRSM.
+Giocando sull’identità visiva della settimana enigmistica, abbiamo portato rompicapi, elementi e soluzioni ripresi dalla community di Swag Marino.
+.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="project-right">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop" class="gallery-img"></div>
+                <div class="gallery-item">
+                 <video autoplay loop muted playsinline>
+                        <source src="./img:/videosettunigm.MP4" type="video/mp4">
+                    </video>
+                </div> 
+                <div class="gallery-item">
+                    <img src="./img:/fotozazabird.jpg" class="gallery-img" alt="zazabird">
+                </div>
+                <div class="gallery-item">
+                    <img src="./img:/logosettung.jpg" class="gallery-img" alt="enigmistica">
+                </div>
             </div>
         </section>
 
@@ -551,8 +672,8 @@
                     </div>
 
                     <div class="contact-details mb-5">
-                        <p><a href="mailto:tuaemail@gmail.com" class="contact-link">tuaemail@gmail.com</a></p>
-                        <p>+39 123 456 7890</p>
+                        <p><a href="mailto:kevinkolonjari76@gmail.com" class="contact-link">kevinkolonjari76@gmail.com</a></p>
+                        <p>+39 3319989613</p>
 
                         <a href="#" class="btn-cv-footer">
                             Scarica CV
@@ -617,6 +738,26 @@
             requestAnimationFrame(raf)
         }
         requestAnimationFrame(raf)
+
+        // SCRIPT NAVBAR SMART
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if(scrollTop < 0) return;
+
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                // Scendendo
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Salendo
+                navbar.classList.remove('navbar-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             const scrollItems = document.querySelectorAll('.scroll-item');
