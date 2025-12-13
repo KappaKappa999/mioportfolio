@@ -21,11 +21,8 @@
             --btn-beige: #f4e9d8;
         }
 
-        /* LENIS SMOOTH SCROLL CSS */
-        html.lenis, html.lenis body { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto !important; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
+        /* LENIS RIMOSSO - ORA SCROLL NATIVO DEL BROWSER */
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -33,6 +30,7 @@
             color: var(--text-color);
             overflow-x: hidden;
             cursor: default; 
+            padding-top: 0; /* Bootstrap fixed navbar fix */
         }
 
         h1, h2, h3, h4, .navbar-brand, .project-title-big {
@@ -70,14 +68,14 @@
         /* NAVBAR & HOVER EFFECTS */
         .navbar {
             padding: 2rem 0;
-            background: rgba(14, 14, 14, 0.9);
+            background: rgba(14, 14, 14, 0.95); /* Leggermente più scuro per leggibilità */
             backdrop-filter: blur(10px);
             z-index: 1000;
-            /* Transizione per effetto scomparsa */
-            transition: transform 0.3s ease-in-out, background 0.3s;
+            /* Transizione fluida per nascondere/mostrare */
+            transition: transform 0.4s ease-in-out;
         }
         
-        /* Classe per nascondere la navbar */
+        /* CLASSE CHE NASCONDE LA NAVBAR */
         .navbar-hidden {
             transform: translateY(-100%);
         }
@@ -420,7 +418,7 @@
                 /* SFONDO MOBILE */
                 background-image: 
                     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                    url('./header-bg-mobile.jpg'); /* <-- ASSICURATI DI AVERE QUESTA IMG */
+                    url('./img:/header-bg-mobile.jpg'); 
                 background-attachment: fixed; 
                 background-position: center top;
                 background-size: cover;
@@ -720,49 +718,44 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
     
     <script>
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        })
-        function raf(time) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-        requestAnimationFrame(raf)
-
-        // SCRIPT NAVBAR SMART
+        // --- 1. SCRIPT PER LA NAVBAR SMART (SENZA LENIS) ---
         let lastScrollTop = 0;
         const navbar = document.querySelector('.navbar');
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            if(scrollTop < 0) return;
+            // Fix per il rimbalzo su Safari (overscroll negativo)
+            if (scrollTop < 0) return;
 
+            // Logica: Se scendo E ho superato i 50px dall'alto -> NASCONDI
             if (scrollTop > lastScrollTop && scrollTop > 50) {
-                // Scendendo
                 navbar.classList.add('navbar-hidden');
+
+                // EXTRA: Chiude il menu burger se è aperto quando scrolli giù
+                const collapseElement = document.getElementById('navbarNav');
+                if (collapseElement.classList.contains('show')) {
+                     const bsCollapse = new bootstrap.Collapse(collapseElement, {toggle: false});
+                     bsCollapse.hide();
+                     document.querySelector('.navbar-toggler').setAttribute('aria-expanded', 'false');
+                }
+
             } else {
-                // Salendo
+                // Se salgo -> MOSTRA
                 navbar.classList.remove('navbar-hidden');
             }
             
             lastScrollTop = scrollTop;
         });
 
+
+        // --- 2. SCRIPT PER L'ANIMAZIONE DEGLI ELEMENTI AL CARICAMENTO/SCROLL ---
         document.addEventListener("DOMContentLoaded", function() {
             const scrollItems = document.querySelectorAll('.scroll-item');
             
-            // Applica hidden solo se siamo sicuri che JS gira
+            // Nascondi elementi inizialmente
             scrollItems.forEach(el => el.classList.add('hidden-state'));
 
             const observerOptions = {
@@ -784,7 +777,7 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
                 observer.observe(el);
             });
 
-            // SALVAGENTE
+            // Salvagente: Se l'observer fallisce, mostra tutto dopo 2 secondi
             setTimeout(() => {
                 const hiddenItems = document.querySelectorAll('.hidden-state');
                 hiddenItems.forEach(el => {
