@@ -118,12 +118,9 @@
             display: flex;
             align-items: center;
             padding-top: 80px;
-
-            /* MODIFICA FONDAMENTALE: PERCORSO CON I DUE PUNTI (./img:/) */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('./img:/herobackground.jpg'); /* <--- DUE PUNTI QUI */
-            
+                url('./img:/herobackground.jpg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -160,10 +157,9 @@
         /* --- ABOUT ME --- */
         #about {
             position: relative; width: 100%; min-height: 70vh; 
-            /* SFONDO DESKTOP CON I DUE PUNTI */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('./img:/header-bg-desktop.jpg'); /* <--- DUE PUNTI QUI */
+                url('./img:/header-bg-desktop.jpg');
             background-position: center; background-attachment: fixed;
             background-repeat: no-repeat; background-size: cover;
             display: flex; align-items: flex-start;
@@ -207,11 +203,10 @@
             #about h2 { font-size: 2.5rem; }
             #about .about-text { font-size: 1.2rem; }
             
-            /* SFONDO MOBILE ABOUT - MODIFICA QUI */
             #about {
                 background-image: 
                     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                    url('./img:/header-bg-mobile.jpg'); /* <--- DUE PUNTI QUI. Controlla che questo file esista! */
+                    url('./img:/header-bg-mobile.jpg');
                 background-attachment: fixed; 
                 background-position: center top; 
                 background-size: cover;
@@ -378,13 +373,13 @@ Giocando sull’identità visiva della settimana enigmistica.</p>
                     </div>
                     <div class="contact-details mb-5">
                         <p><a href="mailto:kevinkolonjari76@gmail.com" class="contact-link">kevinkolonjari76@gmail.com</a></p>
-                        <p>+39 3319989613</p>
+                        <p><a href="tel:+393319989613" class="contact-link" style="text-decoration:none; color:inherit;">+39 3319989613</a></p>
                         <a href="#" class="btn-cv-footer">Scarica CV</a>
                     </div>
                     <div class="social-links">
                         <span class="contact-label">Follow</span>
-                        <p><a href="#" class="contact-link">Instagram</a></p>
-                        <p><a href="#" class="contact-link">LinkedIn</a></p>
+                        <p><a href="https://www.instagram.com/kevinkolonjari/" class="contact-link" target="_blank">Instagram</a></p>
+                        <p><a href="https://www.linkedin.com/in/kevin-kolonjari-aab746291" class="contact-link" target="_blank">LinkedIn</a></p>
                     </div>
                 </div>
                 <div class="col-lg-7">
