@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Design</title>
+    <title>Kevin Kolonjari - Portfolio</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -21,7 +21,6 @@
             --btn-beige: #f4e9d8;
         }
 
-        /* LENIS RIMOSSO - ORA SCROLL NATIVO DEL BROWSER */
         html { scroll-behavior: smooth; }
 
         body {
@@ -30,7 +29,7 @@
             color: var(--text-color);
             overflow-x: hidden;
             cursor: default; 
-            padding-top: 0; /* Bootstrap fixed navbar fix */
+            padding-top: 0; 
         }
 
         h1, h2, h3, h4, .navbar-brand, .project-title-big {
@@ -39,7 +38,7 @@
             letter-spacing: -1px;
         }
 
-        /* --- ANIMAZIONE HERO --- */
+        /* --- ANIMAZIONI --- */
         @keyframes fadeUpHero {
             from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
@@ -50,7 +49,6 @@
         }
         .delay-1 { animation-delay: 0.3s; }
 
-        /* --- ANIMAZIONE SCROLL --- */
         .scroll-item {
             transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             opacity: 1; 
@@ -65,20 +63,16 @@
             transform: translateY(0) !important;
         }
 
-        /* NAVBAR & HOVER EFFECTS */
+        /* NAVBAR */
         .navbar {
             padding: 2rem 0;
-            background: rgba(14, 14, 14, 0.95); /* Leggermente più scuro per leggibilità */
-            backdrop-filter: blur(10px);
+            background: rgba(14, 14, 14, 0.7); 
+            backdrop-filter: blur(8px);
             z-index: 1000;
-            /* Transizione fluida per nascondere/mostrare */
             transition: transform 0.4s ease-in-out;
         }
         
-        /* CLASSE CHE NASCONDE LA NAVBAR */
-        .navbar-hidden {
-            transform: translateY(-100%);
-        }
+        .navbar-hidden { transform: translateY(-100%); }
 
         .navbar-brand, .nav-link {
             color: white !important;
@@ -98,10 +92,7 @@
         .navbar-brand::after, .nav-link::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
+            width: 0; height: 2px; bottom: -5px; left: 50%;
             background-color: var(--accent-color);
             transition: all 0.3s ease-in-out;
             transform: translateX(-50%);
@@ -109,299 +100,101 @@
         .navbar-brand:hover, .nav-link:hover { color: var(--accent-color) !important; }
         .navbar-brand:hover::after, .nav-link:hover::after { width: 100%; }
 
-        /* --- STILE MENU BURGER ANIMATO --- */
-        .navbar-toggler.custom-toggler {
-            border: none;
-            padding: 0;
-            outline: none;
-            box-shadow: none !important;
-        }
-
-        .hamburger-lines {
-            width: 30px;
-            height: 24px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hamburger-lines .line {
-            display: block;
-            height: 3px;
-            width: 100%;
-            border-radius: 10px;
-            background: var(--accent-color); /* VERDE FLUO */
-        }
-
+        /* BURGER MENU */
+        .navbar-toggler.custom-toggler { border: none; padding: 0; outline: none; box-shadow: none !important; }
+        .hamburger-lines { width: 30px; height: 24px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .hamburger-lines .line { display: block; height: 3px; width: 100%; border-radius: 10px; background: var(--accent-color); }
         .hamburger-lines .line1 { transform-origin: 0% 0%; transition: transform 0.4s ease-in-out; }
         .hamburger-lines .line2 { transition: transform 0.2s ease-in-out; }
         .hamburger-lines .line3 { transform-origin: 0% 100%; transition: transform 0.4s ease-in-out; }
-
-        /* ANIMAZIONE A 'X' QUANDO APERTO */
         .navbar-toggler[aria-expanded="true"] .line1 { transform: rotate(45deg); }
         .navbar-toggler[aria-expanded="true"] .line2 { transform: scaleY(0); }
         .navbar-toggler[aria-expanded="true"] .line3 { transform: rotate(-45deg); }
 
 
-        /* HERO SECTION */
+        /* --- HERO SECTION --- */
         .hero-section {
             min-height: 90vh;
             display: flex;
             align-items: center;
             padding-top: 80px;
+
+            /* MODIFICA FONDAMENTALE: PERCORSO CON I DUE PUNTI (./img:/) */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('./img:/herobackground.jpg'); /* <--- DUE PUNTI QUI */
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+        
         .hero-text { font-size: 6vw; line-height: 1; text-transform: uppercase; }
         .hero-sub {
-            font-size: 1.1rem;
-            color: #888;
-            margin-top: 2rem;
-            border-left: 2px solid var(--accent-color);
-            padding-left: 1rem;
+            font-size: 1.1rem; color: #ddd; margin-top: 2rem;
+            border-left: 2px solid var(--accent-color); padding-left: 1rem;
         }
 
         /* --- LAYOUT PROGETTI --- */
-        .project-section-split {
-            display: flex;
-            height: 100vh;
-            border-top: 1px solid #333;
-            margin-bottom: 0;
-            position: relative;
-            padding-top: 80px;
-        }
-
-        .project-left {
-            width: 40%;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid #333;
-            background-color: var(--bg-color);
-            overflow-y: auto;
-        }
+        .project-section-split { display: flex; height: 100vh; border-top: 1px solid #333; margin-bottom: 0; position: relative; padding-top: 80px; }
+        .project-left { width: 40%; padding: 3rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid #333; background-color: var(--bg-color); overflow-y: auto; }
         .project-left::-webkit-scrollbar { width: 4px; }
         .project-left::-webkit-scrollbar-thumb { background: #333; }
-
         .project-title-big { font-size: 3rem; margin-bottom: 1rem; line-height: 1; text-transform: uppercase; }
         .project-desc { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 2rem; line-height: 1.5; }
-
         .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem; }
         .tag { border: 1px solid #444; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; color: var(--secondary-text); text-transform: uppercase; }
-
-        .btn-project-trigger {
-            background: none;
-            border: none;
-            color: white;
-            padding: 0;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            display: inline-flex;
-            align-items: center;
-            transition: color 0.3s;
-            cursor: pointer;
-            text-align: left;
-        }
+        .btn-project-trigger { background: none; border: none; color: white; padding: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; display: inline-flex; align-items: center; transition: color 0.3s; cursor: pointer; text-align: left; }
         .btn-project-trigger:hover { color: var(--accent-color); }
         .btn-project-trigger::after { content: '+'; margin-left: 10px; font-size: 1.5rem; font-weight: 300; }
-
-        .details-box {
-            margin-top: 1.5rem;
-            border-left: 2px solid var(--accent-color);
-            padding-left: 1.5rem;
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-        .detail-row {
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #222;
-            padding-bottom: 0.5rem;
-        }
+        .details-box { margin-top: 1.5rem; border-left: 2px solid var(--accent-color); padding-left: 1.5rem; color: #ccc; font-size: 0.95rem; }
+        .detail-row { margin-bottom: 0.5rem; display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
         .detail-label { color: #666; text-transform: uppercase; font-size: 0.8rem; }
         .detail-value { font-weight: 600; color: white; }
-
-        .project-right {
-            width: 60%;
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
+        .project-right { width: 60%; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .project-right::-webkit-scrollbar { display: none; }
-
-        .gallery-item {
-            min-width: 80%;
-            height: 100%;
-            scroll-snap-align: start;
-            padding: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* STILE IMMAGINI E VIDEO */
-        .gallery-img, 
-        .gallery-item video {  
-            max-width: 100%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 4px;
-            transition: transform 0.5s ease;
-            outline: none;
-        }
-
-        .gallery-item:hover .gallery-img,
-        .gallery-item:hover video { 
-            transform: scale(1.02); 
-        }
+        .gallery-item { min-width: 80%; height: 100%; scroll-snap-align: start; padding: 2rem; display: flex; align-items: center; justify-content: center; }
+        .gallery-img, .gallery-item video { max-width: 100%; max-height: 90%; object-fit: contain; border-radius: 4px; transition: transform 0.5s ease; outline: none; }
+        .gallery-item:hover .gallery-img, .gallery-item:hover video { transform: scale(1.02); }
 
         /* --- ABOUT ME --- */
         #about {
-            position: relative;
-            width: 100%;
-            min-height: 70vh; 
-            
-            /* SFONDO DESKTOP */
+            position: relative; width: 100%; min-height: 70vh; 
+            /* SFONDO DESKTOP CON I DUE PUNTI */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('./img:/header-bg-desktop.jpg'); 
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-
-            /* Visualizzazione */
-            display: flex;
-            align-items: flex-start;
-            padding-top: 150px; 
-            padding-bottom: 100px;
+                url('./img:/header-bg-desktop.jpg'); /* <--- DUE PUNTI QUI */
+            background-position: center; background-attachment: fixed;
+            background-repeat: no-repeat; background-size: cover;
+            display: flex; align-items: flex-start;
+            padding-top: 150px; padding-bottom: 100px;
         }
 
-        #about h2 {
-            font-size: 4rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
+        #about h2 { font-size: 4rem; color: white; margin-bottom: 1rem; }
+        #about .about-text { font-size: 1.5rem; line-height: 1.6; color: var(--secondary-text); font-weight: 300; }
+        .neon-letter { color: var(--accent-color); font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
-        #about .about-text {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            color: var(--secondary-text); 
-            font-weight: 300;
-        }
-
-        .neon-letter {
-            color: var(--accent-color);
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-        }
-
-        /* --- LET'S TALK SECTION --- */
-        .lets-talk-section {
-            padding: 8rem 0;
-            border-top: 1px solid #222;
-            background-color: var(--bg-color);
-        }
-
-        .lets-talk-title {
-            font-size: 4rem;
-            margin-bottom: 3rem;
-            line-height: 1;
-        }
-
-        .contact-intro {
-            font-size: 1.2rem;
-            color: var(--secondary-text);
-            margin-bottom: 3rem;
-            line-height: 1.6;
-        }
-
-        .contact-details p, .social-links p {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-label {
-            color: var(--secondary-text);
-            display: block;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .contact-link {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+        /* --- LET'S TALK --- */
+        .lets-talk-section { padding: 8rem 0; border-top: 1px solid #222; background-color: var(--bg-color); }
+        .lets-talk-title { font-size: 4rem; margin-bottom: 3rem; line-height: 1; }
+        .contact-intro { font-size: 1.2rem; color: var(--secondary-text); margin-bottom: 3rem; line-height: 1.6; }
+        .contact-details p, .social-links p { margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .contact-label { color: var(--secondary-text); display: block; margin-bottom: 1rem; font-size: 0.9rem; }
+        .contact-link { color: var(--text-color); text-decoration: none; transition: color 0.3s; }
         .contact-link:hover { color: var(--accent-color); }
-
-        .btn-cv-footer {
-            border: 1px solid #444;
-            color: #fff;
-            background: transparent;
-            padding: 10px 25px;
-            border-radius: 50px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            margin-top: 20px;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-        .btn-cv-footer:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            background: rgba(204, 255, 0, 0.1);
-        }
-
-        .contact-form-wrapper {
-            background-color: var(--form-bg);
-            padding: 3rem;
-            border-radius: 12px;
-        }
-
-        .form-label {
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .form-control {
-            background-color: #0e0e0e;
-            border: 1px solid #333;
-            color: var(--text-color);
-            padding: 0.8rem;
-            border-radius: 8px;
-        }
-        .form-control:focus {
-            background-color: #0e0e0e;
-            color: var(--text-color);
-            border-color: var(--accent-color);
-            box-shadow: none;
-        }
+        .btn-cv-footer { border: 1px solid #444; color: #fff; background: transparent; padding: 10px 25px; border-radius: 50px; text-transform: uppercase; font-size: 0.9rem; margin-top: 20px; display: inline-block; transition: all 0.3s ease; }
+        .btn-cv-footer:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(204, 255, 0, 0.1); }
+        .contact-form-wrapper { background-color: var(--form-bg); padding: 3rem; border-radius: 12px; }
+        .form-label { color: var(--text-color); font-weight: 500; }
+        .form-control { background-color: #0e0e0e; border: 1px solid #333; color: var(--text-color); padding: 0.8rem; border-radius: 8px; }
+        .form-control:focus { background-color: #0e0e0e; color: var(--text-color); border-color: var(--accent-color); box-shadow: none; }
         .form-control::placeholder { color: #666; }
-
-        .btn-send {
-            background-color: var(--btn-beige);
-            color: #0e0e0e;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-send:hover {
-            transform: translateY(-3px);
-            background-color: var(--accent-color); 
-            box-shadow: 0 5px 20px rgba(204, 255, 0, 0.3);
-        }
-        
+        .btn-send { background-color: var(--btn-beige); color: #0e0e0e; font-family: 'Space Grotesk', sans-serif; font-weight: 700; padding: 0.8rem 2rem; border-radius: 8px; border: none; display: inline-flex; align-items: center; transition: all 0.3s ease; }
+        .btn-send:hover { transform: translateY(-3px); background-color: var(--accent-color); box-shadow: 0 5px 20px rgba(204, 255, 0, 0.3); }
         .btn-send span { margin-left: 8px; }
 
 
+        /* MEDIA QUERIES - MOBILE */
         @media (max-width: 992px) {
             .hero-text { font-size: 3.5rem; }
             .project-section-split { flex-direction: column; height: auto; padding-top: 60px; }
@@ -410,30 +203,28 @@
             .lets-talk-title { font-size: 3rem; }
             .contact-form-wrapper { padding: 2rem; margin-top: 3rem; }
             
-            /* Aggiustamento About su Mobile */
             #about { padding: 80px 0; min-height: auto; align-items: center; }
             #about h2 { font-size: 2.5rem; }
             #about .about-text { font-size: 1.2rem; }
+            
+            /* SFONDO MOBILE ABOUT - MODIFICA QUI */
             #about {
-                /* SFONDO MOBILE */
                 background-image: 
                     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                    url('./img:/header-bg-mobile.jpg'); 
+                    url('./img:/header-bg-mobile.jpg'); /* <--- DUE PUNTI QUI. Controlla che questo file esista! */
                 background-attachment: fixed; 
-                background-position: center top;
+                background-position: center top; 
                 background-size: cover;
             }
+            .hero-section { background-attachment: scroll; }
         }
-        
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            
             <a class="navbar-brand" href="#">KK</a>
-
             <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <div class="hamburger-lines">
                     <span class="line line1"></span>
@@ -441,7 +232,6 @@
                     <span class="line line3"></span>
                 </div>
             </button>
-            
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="#work">Progetti</a></li>
@@ -449,7 +239,6 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Let's Talk</a></li>
                 </ul>
             </div>
-
         </div>
     </nav>
 
@@ -458,13 +247,10 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h1 class="hero-text hero-animate">
-                        IL <br>
-                        MIO <br>
-                        PORTFOLIO.
+                        IL <br> MIO <br> PORTFOLIO.
                     </h1>
                     <p class="hero-sub hero-animate delay-1">
-                        
-                        Studente di  Design 2023-2026.
+                        Studente di Design 2023-2026.
                     </p>
                 </div>
             </div>
@@ -476,165 +262,86 @@
         <section class="project-section-split">
             <div class="project-left">
                 <h3 class="project-title-big scroll-item">DRIM</h3>
-                <p class="project-desc">
-                    Da cinema di quartiere ad hub di comunità.
-                </p>
+                <p class="project-desc">Da cinema di quartiere ad hub di comunità.</p>
                 <div class="project-tags">
                     <span class="tag">Brand Identity</span>
                     <span class="tag">Research</span>
                 </div>
-
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
                     Vedi Dettagli Progetto
                 </button>
-
                 <div class="collapse" id="collapseOne">
                     <div class="details-box">
-                        <div class="detail-row">
-                            <span class="detail-label">Anno</span>
-                            <span class="detail-value">2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Corso</span>
-                            <span class="detail-value">Lab. di Comunicazione</span>
-                        </div>
-                        <p class="mt-3 small">
-                            Progetto di brand Identity per l’ex cinema ASTORIA situato a Rimini.<br>
-Con il compito di dare vita alla struttura e l’obbiettivo di creare un HUB.
-Un open space multifunzionale e accogliente dedicato ai giovani che offre opportunità di aggregazione, creatività, formazione e supporto.
-                        </p>
+                        <div class="detail-row"><span class="detail-label">Anno</span><span class="detail-value">2025</span></div>
+                        <div class="detail-row"><span class="detail-label">Corso</span><span class="detail-value">Lab. di Comunicazione</span></div>
+                        <p class="mt-3 small">Progetto di brand Identity per l’ex cinema ASTORIA situato a Rimini. Obiettivo: creare un open space multifunzionale e accogliente dedicato ai giovani.</p>
                     </div>
                 </div>
             </div>
-
             <div class="project-right">
-                
-                <div class="gallery-item">
-                    <img src="./img:/mockup-fermata-bus.png" class="gallery-img" alt="Fermata Bus">
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="./img:/mockup-tre-manifesti.png" class="gallery-img" alt="Tre Manifesti">
-                </div>
-
-                <div class="gallery-item">
-                    <img src="./img:/Tessera-Associati_Mockup.jpg" class="gallery-img" alt="Tessera Associati">
-                </div>
-
-                <div class="gallery-item">
-                    <img src="./img:/Free_Ticket_Mockup_2.jpg" class="gallery-img" alt="Ticket">
-                </div>
-
-                 <div class="gallery-item">
-                    <img src="./img:/Tote_Bag_Mockup_2.jpg" class="gallery-img" alt="Tote Bag">
-                </div>
-
+                <div class="gallery-item"><img src="./img:/mockup-fermata-bus.png" class="gallery-img" alt="Fermata Bus"></div>
+                <div class="gallery-item"><img src="./img:/mockup-tre-manifesti.png" class="gallery-img" alt="Tre Manifesti"></div>
+                <div class="gallery-item"><img src="./img:/Tessera-Associati_Mockup.jpg" class="gallery-img" alt="Tessera Associati"></div>
+                <div class="gallery-item"><img src="./img:/Free_Ticket_Mockup_2.jpg" class="gallery-img" alt="Ticket"></div>
+                <div class="gallery-item"><img src="./img:/Tote_Bag_Mockup_2.jpg" class="gallery-img" alt="Tote Bag"></div>
             </div>
         </section>
 
        <section class="project-section-split">
             <div class="project-left">
                 <h3 class="project-title-big scroll-item">Paraschiena</h3>
-                <p class="project-desc">
-                    Progetto e modellazione di un dispositivo di protezione toracica.
-                </p>
+                <p class="project-desc">Dispositivo di protezione toracica.</p>
                 <div class="project-tags">
                     <span class="tag">3D Model</span>
                     <span class="tag">Render</span>
                 </div>
-
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
                     Vedi Dettagli Progetto
                 </button>
-
                 <div class="collapse" id="collapseTwo">
                     <div class="details-box">
-                        <div class="detail-row">
-                            <span class="detail-label">Anno</span>
-                            <span class="detail-value">2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Corso</span>
-                            <span class="detail-value">Modellazione 3D</span>
-                        </div>
-                        <p class="mt-3 small">
-                            Abbiamo deciso di progettare un paraschiena per coloro che praticano kayak, in quanto abbiamo riscontrato una mancanza di dispositivi di protezione specifici per la schiena che fossero in grado di offrire sicurezza senza compromettere la libertà di movimento.
-                        </p>
+                        <div class="detail-row"><span class="detail-label">Anno</span><span class="detail-value">2025</span></div>
+                        <div class="detail-row"><span class="detail-label">Corso</span><span class="detail-value">Modellazione 3D</span></div>
+                        <p class="mt-3 small">Paraschiena per kayak: sicurezza senza compromettere la libertà di movimento.</p>
                     </div>
                 </div>
             </div>
-
             <div class="project-right">
-                
-                <div class="gallery-item">
-                    <img src="./img:/rhino0.png" class="gallery-img" alt="Vista 1">
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="./img:/rhino1.png" class="gallery-img" alt="Vista 2">
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="./img:/rhino2.png" class="gallery-img" alt="Vista 3">
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="./img:/rhino3.png" class="gallery-img" alt="Vista 4">
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="./img:/rhino4.png" class="gallery-img" alt="Vista 5">
-                </div>
-
+                <div class="gallery-item"><img src="./img:/rhino0.png" class="gallery-img" alt="Vista 1"></div>
+                <div class="gallery-item"><img src="./img:/rhino1.png" class="gallery-img" alt="Vista 2"></div>
+                <div class="gallery-item"><img src="./img:/rhino2.png" class="gallery-img" alt="Vista 3"></div>
+                <div class="gallery-item"><img src="./img:/rhino3.png" class="gallery-img" alt="Vista 4"></div>
+                <div class="gallery-item"><img src="./img:/rhino4.png" class="gallery-img" alt="Vista 5"></div>
             </div>
         </section>
 
         <section class="project-section-split">
             <div class="project-left">
                 <h3 class="project-title-big scroll-item">La Settimana Unigmistica</h3>
-                <p class="project-desc">
-                    Progetto interno per UNIRSM
-                </p>
+                <p class="project-desc">Progetto interno per UNIRSM</p>
                 <div class="project-tags">
                     <span class="tag">Stampa</span>
-                    <span class="tag">Comunication</span>
+                    <span class="tag">Communication</span>
                 </div>
-
                 <button class="btn-project-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
                     Vedi Dettagli Progetto
                 </button>
-
                 <div class="collapse" id="collapseThree">
                     <div class="details-box">
-                        <div class="detail-row">
-                            <span class="detail-label">Anno</span>
-                            <span class="detail-value">2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Collaboratori</span>
-                            <span class="detail-value">Matilde Lepri</span>
-                        </div>
-                         <p class="mt-3 small">
-                            Progetto mini-editoriale con la funzione di Ice-breaker per le nuove matricole della triennale di design UNIRSM.
-Giocando sull’identità visiva della settimana enigmistica, abbiamo portato rompicapi, elementi e soluzioni ripresi dalla community di Swag Marino.
-.
-                        </p>
+                        <div class="detail-row"><span class="detail-label">Anno</span><span class="detail-value">2025</span></div>
+                        <div class="detail-row"><span class="detail-label">Collaboratori</span><span class="detail-value">Matilde Lepri</span></div>
+                         <p class="mt-3 small">Progetto mini-editoriale con funzione di Ice-breaker per le nuove matricole di design.</p>
                     </div>
                 </div>
             </div>
-
             <div class="project-right">
                 <div class="gallery-item">
                  <video autoplay loop muted playsinline>
                         <source src="./img:/videosettunigm.MP4" type="video/mp4">
                     </video>
                 </div> 
-                <div class="gallery-item">
-                    <img src="./img:/fotozazabird.jpg" class="gallery-img" alt="zazabird">
-                </div>
-                <div class="gallery-item">
-                    <img src="./img:/logosettung.jpg" class="gallery-img" alt="enigmistica">
-                </div>
+                <div class="gallery-item"><img src="./img:/fotozazabird.jpg" class="gallery-img" alt="zazabird"></div>
+                <div class="gallery-item"><img src="./img:/logosettung.jpg" class="gallery-img" alt="enigmistica"></div>
             </div>
         </section>
 
@@ -651,7 +358,7 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
                         <span class="neon-letter">K</span>evin <span class="neon-letter">K</span>olonjari, nato a Parma con origini albanesi.<br>
                         Cresciuto nel mondo della metalmeccanica,<br>
                         ho sviluppato una passione per il design industriale e l'innovazione tecnologica.<br>
-                        Big fan della musica elettronica, inizio a suonare la console a 14 anni facendolo diventare cosi il mio main hobby.
+                        Big fan della musica elettronica, inizio a suonare la console a 14 anni facendolo diventare così il mio main hobby.
                     </p>
                 </div>
             </div>
@@ -661,30 +368,22 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
     <section id="contact" class="lets-talk-section">
         <div class="container">
             <div class="row">
-                
                 <div class="col-lg-5">
                     <h2 class="lets-talk-title">Let's <br> Talk</h2>
-                    
                     <div class="contact-intro">
                         <p>Facciamo connection Twin, il mondo è paese e io voglio conoscere i miei vicini.</p>
                     </div>
-
                     <div class="contact-details mb-5">
                         <p><a href="mailto:kevinkolonjari76@gmail.com" class="contact-link">kevinkolonjari76@gmail.com</a></p>
                         <p>+39 3319989613</p>
-
-                        <a href="#" class="btn-cv-footer">
-                            Scarica CV
-                        </a>
+                        <a href="#" class="btn-cv-footer">Scarica CV</a>
                     </div>
-
                     <div class="social-links">
                         <span class="contact-label">Follow</span>
                         <p><a href="#" class="contact-link">Instagram</a></p>
                         <p><a href="#" class="contact-link">LinkedIn</a></p>
                     </div>
                 </div>
-
                 <div class="col-lg-7">
                     <div class="contact-form-wrapper">
                         <form>
@@ -706,13 +405,10 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
                                 <label for="messageInput" class="form-label">Your Message</label>
                                 <textarea class="form-control" id="messageInput" rows="5" placeholder="Your Message"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-send">
-                                Send 
-                            </button>
+                            <button type="submit" class="btn btn-send">Send <span>→</span></button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -720,49 +416,34 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // --- 1. SCRIPT PER LA NAVBAR SMART (SENZA LENIS) ---
+        // NAVBAR A SCOMPARSA
         let lastScrollTop = 0;
         const navbar = document.querySelector('.navbar');
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Fix per il rimbalzo su Safari (overscroll negativo)
             if (scrollTop < 0) return;
 
-            // Logica: Se scendo E ho superato i 50px dall'alto -> NASCONDI
             if (scrollTop > lastScrollTop && scrollTop > 50) {
                 navbar.classList.add('navbar-hidden');
-
-                // EXTRA: Chiude il menu burger se è aperto quando scrolli giù
                 const collapseElement = document.getElementById('navbarNav');
                 if (collapseElement.classList.contains('show')) {
                      const bsCollapse = new bootstrap.Collapse(collapseElement, {toggle: false});
                      bsCollapse.hide();
                      document.querySelector('.navbar-toggler').setAttribute('aria-expanded', 'false');
                 }
-
             } else {
-                // Se salgo -> MOSTRA
                 navbar.classList.remove('navbar-hidden');
             }
-            
             lastScrollTop = scrollTop;
         });
 
-
-        // --- 2. SCRIPT PER L'ANIMAZIONE DEGLI ELEMENTI AL CARICAMENTO/SCROLL ---
+        // ANIMAZIONI
         document.addEventListener("DOMContentLoaded", function() {
             const scrollItems = document.querySelectorAll('.scroll-item');
-            
-            // Nascondi elementi inizialmente
             scrollItems.forEach(el => el.classList.add('hidden-state'));
 
-            const observerOptions = {
-                root: null,
-                threshold: 0.1
-            };
-
+            const observerOptions = { root: null, threshold: 0.1 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -773,17 +454,13 @@ Giocando sull’identità visiva della settimana enigmistica, abbiamo portato ro
                 });
             }, observerOptions);
 
-            scrollItems.forEach((el) => {
-                observer.observe(el);
-            });
+            scrollItems.forEach((el) => observer.observe(el));
 
-            // Salvagente: Se l'observer fallisce, mostra tutto dopo 2 secondi
             setTimeout(() => {
                 const hiddenItems = document.querySelectorAll('.hidden-state');
                 hiddenItems.forEach(el => {
                     el.classList.remove('hidden-state');
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
                 });
             }, 2000); 
         });
